@@ -1,17 +1,14 @@
-const key = "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";
 const express = require("express");
+require("dotenv").config();
 const bodyParser = require("body-parser");
 const { Configuration, OpenAIApi } = require("openai");
 const axios = require("axios");
 const twilio = require("twilio");
-const client = twilio(
-  "AC321769bf8114afb8a7ad39176b62011c",
-  "eb5a8971e44855a9f2768a4a1de27100"
-);
+const client = twilio(process.env.SID, process.env.TWILLIOKEY);
 const app = express();
 
 const configuration = new Configuration({
-  apiKey: key,
+  apiKey: process.env.OPENAI,
 });
 const openai = new OpenAIApi(configuration);
 
