@@ -15,6 +15,7 @@ const openai = new OpenAIApi(configuration);
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post("/message", (req, res) => {
+  console.log("new request");
   let smsText = req.body.Body;
   let smsPhone = req.body.From;
   console.log(smsPhone);
