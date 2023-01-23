@@ -45,6 +45,6 @@ app.post("/message", (req, res) => {
     });
 });
 
-app.listen(3000, "0.0.0.0", () => {
+app.listen(`0.0.0.0:$PORT`, () => {
   console.log("listenin");
 });
