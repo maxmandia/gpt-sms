@@ -11,7 +11,7 @@ module.exports = {
     if (response.exists) {
       // handle logic yea
     } else {
-      client.messages({
+      client.messages.create({
         to: phone,
         from: "+18126055420",
         body: `Welcome to MeAndGPT! Visit www.meandgpt.com/signup/${phone} to get started`,
