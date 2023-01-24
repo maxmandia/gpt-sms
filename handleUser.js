@@ -16,6 +16,7 @@ module.exports = {
         .doc(phone)
         .create({
           phoneNumber: phone,
+          createdAt: new Date(),
         })
         .then(() => {
           console.log("user created");
