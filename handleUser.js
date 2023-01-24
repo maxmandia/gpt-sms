@@ -10,7 +10,7 @@ module.exports = {
     if (response.exists) {
       // handle logic
     } else {
-      admin
+      admin.admin
         .firestore()
         .collection("users")
         .doc(phone)
