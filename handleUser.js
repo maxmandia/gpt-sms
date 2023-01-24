@@ -5,8 +5,8 @@ module.exports = {
     let response = await admin.admin
       .firestore()
       .collection("users")
-      .doc(user)
+      .doc("sfVyAluoYBe5X4VFjkTq")
       .get();
-    console.log(response.docs.length);
+    console.log(response.exists);
   },
 };
