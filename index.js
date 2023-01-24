@@ -1,21 +1,23 @@
 const express = require("express");
 require("dotenv").config();
+const handleUser = require("./handleUser");
 const bodyParser = require("body-parser");
 const { Configuration, OpenAIApi } = require("openai");
 const axios = require("axios");
 const twilio = require("twilio");
 const client = twilio(process.env.SID, process.env.TWILLIOKEY);
-const openai = new OpenAIApi(configuration);
 const app = express();
+const { initializeApp } = require("firebase-admin/app");
 app.use(bodyParser.urlencoded({ extended: false }));
 const configuration = new Configuration({
   apiKey: process.env.OPENAI,
 });
+const openai = new OpenAIApi(configuration);
 
 app.post("/message", (req, res) => {
   let smsText = req.body.Body;
   let smsPhone = req.body.From;
-  console.log(smsPhone);
+  console.log(handleUser.checkIfUserExists(smsPhone));
   // openai
   //   .createCompletion({
   //     model: "text-davinci-003",
