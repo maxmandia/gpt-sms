@@ -1,3 +1,4 @@
+require("dotenv").config();
 const admin = require("./firebase");
 const client = twilio(process.env.SID, process.env.TWILLIOKEY);
 
