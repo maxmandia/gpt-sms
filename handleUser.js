@@ -8,7 +8,7 @@ module.exports = {
       .doc(phone)
       .get();
     if (response.exists) {
-      // handle logic
+      // handle logic yea
     } else {
       admin.admin
         .firestore()
