@@ -1,12 +1,28 @@
 const admin = require("./firebase");
 
 module.exports = {
-  checkIfUserExists: async function (user) {
+  checkIfUserExists: async function (phone) {
     let response = await admin.admin
       .firestore()
       .collection("users")
-      .doc("sfVyAluoYBe5X4VFjkTq")
+      .doc(phone)
       .get();
-    console.log(response.exists);
+    if (response.exists) {
+      // handle logic
+    } else {
+      admin
+        .firestore()
+        .collection("users")
+        .doc(phone)
+        .create({
+          phoneNumber: phone,
+        })
+        .then(() => {
+          console.log("user created");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   },
 };
