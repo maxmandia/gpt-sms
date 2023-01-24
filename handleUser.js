@@ -1,4 +1,4 @@
-const admin = require("./firebase");
+const admin = require("firebase-admin");
 
 module.exports = {
   checkIfUserExists: async function (user) {
