@@ -17,7 +17,8 @@ const openai = new OpenAIApi(configuration);
 app.post("/message", (req, res) => {
   let smsText = req.body.Body;
   let smsPhone = req.body.From;
-  console.log(handleUser.checkIfUserExists(smsPhone));
+  console.log(handleUser.checkIfUserExists("smsPhone"));
+
   // openai
   //   .createCompletion({
   //     model: "text-davinci-003",
