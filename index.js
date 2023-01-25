@@ -13,6 +13,7 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI,
 });
 const openai = new OpenAIApi(configuration);
+const stripe = require("stripe")(process.env.STRIPE);
 
 app.post("/message", (req, res) => {
   let smsText = req.body.Body;
@@ -44,6 +45,21 @@ app.post("/message", (req, res) => {
   //   .catch((e) => {
   //     console.log(e.response.data);
   //   });
+});
+
+app.get("/create-payment-intent", async (req, res) => {
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 1,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
 });
 
 app.listen(process.env.PORT, () => {
