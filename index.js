@@ -95,7 +95,7 @@ app.post(
 
     try {
       event = stripe.webhooks.constructEvent(
-        req.body,
+        req.rawBody,
         sig,
         process.env.STRIPE_ENDPOINT_SECRET
       );
@@ -106,6 +106,7 @@ app.post(
 
     if (event.type == "charge.succeeded") {
       console.log(event.data.object);
+      res.send(200);
     }
   }
 );
