@@ -100,7 +100,7 @@ app.post(
         process.env.STRIPE_ENDPOINT_SECRET
       );
     } catch (err) {
-      res.status(400).send(`Webhook Error: ${err.message}`);
+      res.status(400).send(`Webhook Error!: ${err.message}`);
       return;
     }
 
