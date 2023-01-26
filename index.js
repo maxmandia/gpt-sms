@@ -15,6 +15,15 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 const stripe = require("stripe")(process.env.STRIPE);
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 app.post("/message", (req, res) => {
   let smsText = req.body.Body;
   let smsPhone = req.body.From;
@@ -50,7 +59,7 @@ app.post("/message", (req, res) => {
 app.post("/create-payment-intent", async (req, res) => {
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 1,
+    amount: 1000,
     currency: "usd",
     automatic_payment_methods: {
       enabled: true,
@@ -62,6 +71,18 @@ app.post("/create-payment-intent", async (req, res) => {
   });
 });
 
+app.post("/checkout-session", async (req, res) => {
+  const paymentLink = await stripe.paymentLinks.create({
+    line_items: [
+      {
+        price: "price_1MUcjrIiD6NGAJACFWFjjQe7",
+        quantity: 1,
+      },
+    ],
+  });
+
+  console.log(paymentLink);
+});
 app.listen(process.env.PORT, () => {
   console.log("starting server");
 });
