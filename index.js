@@ -80,8 +80,10 @@ app.post("/checkout-session", async (req, res) => {
       },
     ],
   });
-
-  console.log(paymentLink);
+  res.json({
+    url: paymentLink.url,
+  });
+  res.end();
 });
 app.listen(process.env.PORT, () => {
   console.log("starting server");
