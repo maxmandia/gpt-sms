@@ -107,6 +107,7 @@ app.post(
     if (event.type == "charge.succeeded") {
       console.log(event.data.object);
       res.send(200);
+      res.end();
     }
   }
 );
