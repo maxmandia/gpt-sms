@@ -14,6 +14,8 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 const stripe = require("stripe")(process.env.STRIPE);
+const endpointSecret =
+  "whsec_4a2efc0f17e2b55805988065548d1beb13a537a2478919d29389fa8dcfca4874";
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -85,6 +87,26 @@ app.post("/checkout-session", async (req, res) => {
   });
   res.end();
 });
+
+app.post(
+  "/webhook-payment-success",
+  express.raw({ type: "application/json" }),
+  (req, res) => {
+    const sig = req.headers["stripe-signature"];
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    } catch (err) {
+      response.status(400).send(`Webhook Error: ${err.message}`);
+      return;
+    }
+
+    if (event.type == "charge.succeeded") {
+      console.log(event.data.object);
+    }
+  }
+);
 app.listen(process.env.PORT, () => {
   console.log("starting server");
 });
