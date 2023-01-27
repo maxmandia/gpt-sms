@@ -95,7 +95,7 @@ app.post(
 
     try {
       event = stripe.webhooks.constructEvent(
-        req.rawBody,
+        req.body,
         sig,
         process.env.STRIPE_ENDPOINT_SECRET
       );
@@ -109,6 +109,7 @@ app.post(
       // res.send(200);
       // res.end();
     }
+    res.json({ received: true });
   }
 );
 app.listen(process.env.PORT, () => {
